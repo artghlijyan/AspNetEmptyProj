@@ -6,10 +6,12 @@ namespace AspNetEmptyProj
     public class ErrorHandlingMiddleware
     {
         private RequestDelegate _next;
+
         public ErrorHandlingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             await _next.Invoke(context);
