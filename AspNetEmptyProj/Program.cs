@@ -21,6 +21,7 @@ namespace AspNetEmptyProj
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseWebRoot("custom"); // using custom folder https://localhost:44351/custom.html
                 });
     }
 }
