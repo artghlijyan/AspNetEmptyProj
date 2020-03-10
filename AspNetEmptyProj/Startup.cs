@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetEmptyProj.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,20 +13,31 @@ namespace AspNetEmptyProj
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services) { }
+        public void ConfigureServices(IServiceCollection services) 
+        {
+            services.AddTransient<IMessageSender, SmsSender>(); // Dependancy Injection, Service 
+            services.AddTransient<MessageService>();
+            services.AddTimeService(); // services.AddTransient<TimeService>();
+        }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MessageService messageService)
         {
             //app.UseMiddleware<ErrorHandlingMiddleware>();
             //app.UseMiddleware<AuthenticationMiddleware>();
             //app.UseMiddleware<RoutingMiddleware>();
 
-            app.UseDirectoryBrowser(); // exploreing cataloges of application
-            app.UseStaticFiles(); // https://localhost:44351/index.html
+            //app.UseDirectoryBrowser(); // exploreing cataloges of application
+            //app.UseStaticFiles(); // https://localhost:44351/index.html
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World");
+                //await context.Response.WriteAsync($"CurrentTime: {timeService?.GetTime()}");
+                await context.Response.WriteAsync(messageService.Send());
             });
         }
 
