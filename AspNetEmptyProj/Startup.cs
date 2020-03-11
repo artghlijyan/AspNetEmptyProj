@@ -18,6 +18,13 @@ namespace AspNetEmptyProj
             services.AddTransient<IMessageSender, SmsSender>(); // Dependancy Injection, Service 
             services.AddTransient<MessageService>();
             services.AddTimeService(); // services.AddTransient<TimeService>();
+
+            //services.AddTransient<IMessageSender>(provider => // using Func<IServiceProvider,object>
+            //{
+                //if (DateTime.Now.Hour <= 12) return new EmailSender();
+                //else return new SmsSender();
+            //});
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MessageService messageService)

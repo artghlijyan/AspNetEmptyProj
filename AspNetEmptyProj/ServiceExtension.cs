@@ -7,4 +7,16 @@ public static class ServiceProviderExtensions
     {
         services.AddTransient<TimeService>();
     }
+
+    public static IServiceCollection AddEmailServices(this IServiceCollection services)
+    {
+        services.AddScoped<IMessageSender, EmailSender>();
+        return services;
+    }
+
+    public static IServiceCollection AddSmsServices(this IServiceCollection services)
+    {
+        services.AddScoped<IMessageSender, SmsSender>();
+        return services;
+    }
 }
