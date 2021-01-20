@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace AspNetEmptyProj
+namespace AspNetLesson.Middleware
 {
     public class AuthenticationMiddleware
     {
-        private RequestDelegate _next;
+        private readonly RequestDelegate _next;
 
         public AuthenticationMiddleware(RequestDelegate next)
         {
@@ -15,7 +15,8 @@ namespace AspNetEmptyProj
         public async Task InvokeAsync(HttpContext context)
         {
             var token = context.Request.Query["token"];
-            if (string.IsNullOrWhiteSpace(token))
+
+            if (token != "555")
             {
                 context.Response.StatusCode = 403;
             }

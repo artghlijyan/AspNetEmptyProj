@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace AspNetEmptyProj
+namespace AspNetLesson.Middleware
 {
     public class ErrorHandlingMiddleware
     {
@@ -15,6 +15,7 @@ namespace AspNetEmptyProj
         public async Task InvokeAsync(HttpContext context)
         {
             await _next.Invoke(context);
+
             if (context.Response.StatusCode == 403)
             {
                 await context.Response.WriteAsync("Access Denied");

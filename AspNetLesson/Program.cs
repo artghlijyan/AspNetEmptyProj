@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace AspNetEmptyProj
+namespace AspNetLesson
 {
     public class Program
     {
@@ -21,7 +15,6 @@ namespace AspNetEmptyProj
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseWebRoot("custom"); // using custom folder https://localhost:44351/custom.html
                 });
     }
 }

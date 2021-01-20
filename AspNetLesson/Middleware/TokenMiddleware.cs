@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace AspNetEmptyProj
+namespace AspNetLesson.Middleware
 {
     public class TokenMiddleware
     {
+        private readonly string _token;
         private readonly RequestDelegate _next;
-        string _pattern;
 
-        public TokenMiddleware(RequestDelegate next, string pattern)
+        public TokenMiddleware(RequestDelegate next, string token)
         {
-            this._next = next;
-            this._pattern = pattern;
+            _next = next;
+            _token = token;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             var token = context.Request.Query["token"];
-            if (token != _pattern)
+
+            if (token != _token)
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Token is invalid");

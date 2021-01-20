@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace AspNetEmptyProj
+namespace AspNetLesson.Middleware
 {
-    public class RoutingMiddleware
+    public class RoutingMiddlware
     {
         private readonly RequestDelegate _next;
-        public RoutingMiddleware(RequestDelegate next)
+
+        public RoutingMiddlware(RequestDelegate next)
         {
             _next = next;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            string path = context.Request.Path.Value.ToLower();
+            var path = context.Request.Path.Value.ToLower();
 
             if (path == "/index")
             {
@@ -27,7 +28,6 @@ namespace AspNetEmptyProj
             {
                 context.Response.StatusCode = 404;
             }
-            //await _next.Invoke(context);
         }
     }
 }
