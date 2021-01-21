@@ -1,17 +1,31 @@
-using AspNetLesson.Middleware;
+using AspNetLesson.DbRepo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MiddleWareExtension;
 
 namespace AspNetLesson
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddTransient<IMessageSender, EmailMessageSender>();
+            //services.AddTransient<MessageService>();
+            // services.AddMessageService(); DiExtension
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment _env)
@@ -40,13 +54,12 @@ namespace AspNetLesson
                 //app.UseToken("555");
                 app.UseRouting();
 
-                //app.UseEndpoints(endpoints =>
-                //{
-                //    endpoints.MapGet("/", async context =>
-                //    {
-                //        await context.Response.WriteAsync("Hello World!");
-                //    });
-                //});
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                });
             }
         }
     }

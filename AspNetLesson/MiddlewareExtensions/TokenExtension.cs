@@ -1,7 +1,7 @@
 ﻿using AspNetLesson.Middleware;
 using Microsoft.AspNetCore.Builder;
 
-namespace MiddleWareExtension
+namespace MiddleWareExtensions
 {
     public static class TokenExtensions
     {
