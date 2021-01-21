@@ -11,6 +11,8 @@ namespace AspNetLesson
 {
     public class Startup
     {
+        private string ConString => Configuration.GetConnectionString("DefaultConnection");
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -22,9 +24,8 @@ namespace AspNetLesson
         {
             //services.AddTransient<IMessageSender, EmailMessageSender>();
             //services.AddTransient<MessageService>();
-            // services.AddMessageService(); DiExtension
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
+            //services.AddMessageService(); DiExtension
+            services.AddDbContext<MobileContext>(options => options.UseSqlServer(ConString));
             services.AddControllersWithViews();
         }
 
@@ -56,9 +57,14 @@ namespace AspNetLesson
 
                 app.UseEndpoints(endpoints =>
                 {
+                    endpoints.MapAreaControllerRoute(
+                        areaName: "Admin", 
+                        name: "adminArea",
+                        pattern: "admin/{controller=Admin}/{action=Index}/{id?}");
+
                     endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
                 });
             }
         }

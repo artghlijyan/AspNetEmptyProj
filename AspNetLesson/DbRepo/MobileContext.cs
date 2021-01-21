@@ -11,7 +11,7 @@ namespace AspNetLesson.DbRepo
         public MobileContext(DbContextOptions<MobileContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
     }
 }

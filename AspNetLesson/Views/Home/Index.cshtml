@@ -1,17 +1,24 @@
-﻿@{
-	Layout = null;
+﻿@model IEnumerable<AspNetLesson.Models.Phone>
+@{
+	ViewData["Title"] = "Products Catalog";
 }
-
-<!doctype html>
-<html>
-<head>
-	<title>Asp.Net Mvc Lesson</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width">
-</head>
-<body>
-	<h2>
-		User id = @Model.Id
-	</h2>
-</body>
-</html>
+<h3>Smartphones</h3>
+<table>
+	<tr>
+		<td>Model</td>
+		<td>Manufacturer</td>
+		<td>Price</td>
+		<td></td>
+	</tr>
+	@foreach (var phone in Model)
+	{
+		<tr>
+			<td>@phone.Name</td>
+			<td>@phone.Company</td>
+			<td>@phone.Price</td>
+			<td>
+				<a href="~/Home/Buy/@phone.Id">Buy</a>
+			</td>
+		</tr>
+	}
+</table>

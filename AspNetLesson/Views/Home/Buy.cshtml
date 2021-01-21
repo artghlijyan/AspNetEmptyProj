@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Order Registration";
+}
+
+<div>
+	<h3>Order registration form</h3>
+	<p>Please fill the form to place the order</p>
+	<form method="post">
+		<input type="hidden" value="@ViewBag.PhoneId" name="PhoneId" />
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td>
+					<input type="text" name="User" />
+				</td>
+			</tr>
+			<tr>
+				<td>Address:</td>
+				<td>
+					<input type="text" name="Address" />
+				</td>
+			</tr>
+			<tr>
+				<td>Contact Phone:</td>
+				<td>
+					<input type="text" name="ContactPhone" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Submit" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
